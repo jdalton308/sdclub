@@ -14,29 +14,13 @@
   <div class="cards-container container">
     <div class="columns">
       <div class="column">
-        <div class="card">
-          <div class="card-image">
-            <div class="image is-4by3">
-              <img src="https://via.placeholder.com/150" alt="">
-            </div>
-          </div>
-          <div class="card-content">
-            <h3>Charmander</h3>
-            <div class="pokemon-stat-list">
-              <div class="pokemon-stat">
-                <div class="stat-title">Abilities:</div>
-                <div class="stat-value">Blaze, Solar</div>
-              </div>
-              <div class="pokemon-stat">
-                <div class="stat-title">Abilities:</div>
-                <div class="stat-value">Blaze, Solar</div>
-              </div>
-            </div>
-            <button class="button-outline">
-              Learn more
-            </button>
-          </div>
-        </div>
+        <PokemonCard />
+      </div>
+      <div class="column">
+        <PokemonCard />
+      </div>
+      <div class="column">
+        <PokemonCard />
       </div>
     </div>
   </div>
@@ -48,18 +32,27 @@
 
 
 <script>
-export default {}
+
+import PokemonCard from '../components/pokemon-card.vue';
+
+
+export default {
+  name: 'page-pokemon',
+  components: {
+    PokemonCard,
+  },
+}
 </script>
 
 
 
 <style lang="scss">
 
-.page-title-container {
-  padding-top: 40px;
-}
-.cards-container {
-  margin-bottom: 40px;
-}
+.page-pokemon {
+  padding-bottom: 40px;
 
+  .page-title-container {
+    padding-top: 40px;
+  }
+}
 </style>

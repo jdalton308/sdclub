@@ -2,7 +2,18 @@
 
 // Setting custom values for Bulma/Buefy variables: https://bulma.io/documentation/customize/variables/
 $primary: #5700ff; // SDC Brand color
+$text: #000;
 $family-primary: "Sofia Pro", sans-serif;
+
+// Button
+$button-border-width: 2px;
+$button-padding-vertical: 12px;
+$button-padding-horizontal: 24px;
+
+// Card
+$card-shadow: none;
+$card-radius: 8px;
+$card-content-padding: 40px;
 
 
 // Import Bulma and Buefy styles
