@@ -1,0 +1,23 @@
+
+h1 {
+  font-weight: 900;
+
+  &.title-eyebrow {
+    margin-bottom: 20px;
+    font-size: .75rem;
+    line-height: 1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+h2 {
+  margin-bottom: 40px;
+  font-weight: 900;
+  font-size: 2.25rem;
+  line-height: calc(1em + 8px);
+
+  @media (min-width: 768px) {
+    font-size: 3rem;
+  }
+}
