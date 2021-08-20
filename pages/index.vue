@@ -33,6 +33,7 @@
 
 <script>
 
+import createPokemonRequest from '../utils/pokemon-request.js';
 import PokemonCard from '../components/pokemon-card.vue';
 
 
@@ -40,6 +41,21 @@ export default {
   name: 'page-pokemon',
   components: {
     PokemonCard,
+  },
+
+//----
+
+  async asyncData({ $axios }) {
+    const request = createPokemonRequest('charmander');
+    console.log('charmander request: ', request);
+
+    const response = await $axios.$post(
+      "https://beta.pokeapi.co/graphql/v1beta",
+      createPokemonRequest('charmander'),
+    );
+
+    console.log('pokemon response: ', response);
+    return { pokemon: response.data };
   },
 }
 </script>
