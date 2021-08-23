@@ -1,33 +1,63 @@
 
 <template>
 
-<div class="pokemon-card card">
-  
-  <div class="card-image">
-    <figure class="image">
-      <img :src="`https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/official-artwork/${ id }.png?raw=true`" alt="">
-    </figure>
-  </div>
-
-  <div class="card-content">
-    <h3 class="pokemon-name">{{ name }}</h3>
-
-    <div class="pokemon-stat-list">
-      <div
-        class="pokemon-stat"
-        v-for="(statValue, statTitle) in stats"
-        :key="statTitle"
-      >
-        <div class="stat-title">{{ statTitle }}:</div>
-        <div class="stat-value">{{ statValue }}</div>
-      </div>
+<div
+  class="card-flip-container"
+  :class="{'flipped': cardFlipped}"
+>
+  <div class="pokemon-card card">
+    
+    <div class="card-image">
+      <figure class="image">
+        <img :src="`https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/official-artwork/${ id }.png?raw=true`" alt="">
+      </figure>
     </div>
 
-    <SmileButton
-      :onClick="() => {}"
-    >
-      Learn more
-    </SmileButton>
+    <div class="card-content">
+      <h3 class="pokemon-name">{{ name }}</h3>
+
+      <div class="pokemon-stat-list">
+        <div
+          class="pokemon-stat"
+          v-for="(statValue, statTitle) in stats"
+          :key="statTitle"
+        >
+          <div class="stat-title">{{ statTitle }}:</div>
+          <div class="stat-value">{{ statValue }}</div>
+        </div>
+      </div>
+
+      <SmileButton
+        :onClick="flipCard"
+      >
+        Learn more
+      </SmileButton>
+    </div>
+
+  </div>
+
+  <!-- Card Back -->
+  <div class="pokemon-card-back card">
+    <div class="card-content">
+      <h3 class="pokemon-name">{{ name }}</h3>
+
+      <div class="pokemon-stat-list">
+        <div
+          class="pokemon-stat"
+          v-for="(statValue, statTitle) in stats"
+          :key="statTitle"
+        >
+          <div class="stat-title">{{ statTitle }}:</div>
+          <div class="stat-value">{{ statValue }}</div>
+        </div>
+      </div>
+
+      <SmileButton
+        :onClick="flipCard"
+      >
+        Learn more
+      </SmileButton>
+    </div>
   </div>
 
 </div>
@@ -47,7 +77,7 @@ export default {
     SmileButton,
   },
   data: () => ({
-    // cardFlipped: false,
+    cardFlipped: false,
   }),
 
 //----
@@ -67,9 +97,9 @@ export default {
 //----
 
   methods: {
-    // flipCard() {
-    //   this.cardFlipped: true,
-    // }
+    flipCard(e) {
+      this.cardFlipped = !this.cardFlipped;
+    },
   }
 }
 
@@ -79,7 +109,34 @@ export default {
 
 <style lang="scss">
 
-.pokemon-card.card {
+.card-flip-container {
+  position: relative;
+  transition: transform 0.6s ease-in-out;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+
+  &.flipped {
+    transform: rotateY(180deg);
+
+    .pokemon-card {
+      pointer-events: none;
+    }
+  }
+
+  .card {
+    backface-visibility: hidden;
+  }
+  .pokemon-card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform: rotateY(180deg);
+  }
+}
+.pokemon-card.card,
+.pokemon-card-back.card {
   overflow: hidden;
 
   .card-image {
