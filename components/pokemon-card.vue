@@ -4,9 +4,9 @@
 <div class="pokemon-card card">
   
   <div class="card-image">
-    <div class="image is-4by3">
+    <figure class="image">
       <img :src="`https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/official-artwork/${ id }.png?raw=true`" alt="">
-    </div>
+    </figure>
   </div>
 
   <div class="card-content">
@@ -46,6 +46,9 @@ export default {
   components: {
     SmileButton,
   },
+  data: () => ({
+    // cardFlipped: false,
+  }),
 
 //----
 
@@ -59,6 +62,14 @@ export default {
     stats: {
       type: Object,
     },
+  },
+
+//----
+
+  methods: {
+    // flipCard() {
+    //   this.cardFlipped: true,
+    // }
   }
 }
 
@@ -69,8 +80,17 @@ export default {
 <style lang="scss">
 
 .pokemon-card.card {
+  overflow: hidden;
+
   .card-image {
     background-color: #E0E0E0;
+
+    img {
+      width: auto;
+      max-height: 290px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
   .pokemon-name {
     text-transform: capitalize;
