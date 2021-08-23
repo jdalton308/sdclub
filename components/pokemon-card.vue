@@ -49,29 +49,31 @@
         >
           <div
             v-if="Array.isArray(infoValue)"
-            class="all-stat-list"
+            class="all-stats-list"
           >
             <div class="all-stats-title">{{ infoTitle }}</div>
             <div class="pokemon-stat-list">
               <div
                 class="pokemon-stat"
-                v-for="(statValue, statTitle) in infoValue"
-                :key="statTitle"
+                v-for="listItem in infoValue"
+                :key="listItem[0]"
               >
-                <div class="stat-title">{{ statTitle }}:</div>
-                <div class="stat-value">{{ statValue }}</div>
+                <div class="stat-title">{{ listItem[0] }}:</div>
+                <div class="stat-value">{{ listItem[1] }}</div>
               </div>
             </div>
           </div>
-          <div class="stat-title">{{ infoTitle }}:</div>
-          <div class="stat-value">{{ infoValue }}</div>
+          <template v-else>
+            <div class="stat-title">{{ infoTitle }}:</div>
+            <div class="stat-value">{{ infoValue }}</div>
+          </template>
         </div>
       </div>
 
       <SmileButton
         :onClick="flipCard"
       >
-        Learn more
+        Back
       </SmileButton>
     </div>
   </div>
@@ -92,12 +94,6 @@ export default {
   components: {
     SmileButton,
   },
-  data: () => ({
-    cardFlipped: false,
-  }),
-
-//----
-
   props: {
     name: {
       type: String,
@@ -112,6 +108,12 @@ export default {
       type: Object,
     }
   },
+
+//----
+
+  data: () => ({
+    cardFlipped: false,
+  }),
 
 //----
 
@@ -187,6 +189,16 @@ export default {
         display: inline-block;
         text-transform: capitalize;
       }
+    }
+  }
+  .all-stats-list {
+    margin: 20px 0 0;
+
+    .all-stats-title {
+      margin: 0 0 4px;
+      text-transform: capitalize;
+      font-weight: 600;
+      font-size: 1rem;
     }
   }
 }

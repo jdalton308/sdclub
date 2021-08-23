@@ -76,8 +76,6 @@ export default {
         color,
       } = rawResponse;
 
-      console.log('pokemon response: ', pokemon);
-
       return {
         name,
         id,
@@ -89,11 +87,11 @@ export default {
           defense: pokemon.nodes[0].stats.find((stat) => stat.stat.name === 'defense').base_stat,
         },
         moreInfo: {
-          allStats: pokemon.nodes[0].stats.map((statObj) => ({[statObj.stat.name]: statObj.base_stat})),
-          'flavor text': flavor_text,
-          genus,
-          habitat,
-          color,
+          genus: genus[0].genus,
+          'fun fact': flavor_text[0].flavor_text,
+          habitat: habitat.name,
+          color: color.name,
+          'all stats': pokemon.nodes[0].stats.map((statObj) => [statObj.stat.name, statObj.base_stat]),
         },
         rawResponse,
       };
