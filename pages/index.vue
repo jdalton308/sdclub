@@ -22,6 +22,7 @@
           :name="pokemon.name"
           :id="pokemon.id"
           :stats="pokemon.stats"
+          :moreInfo="pokemon.moreInfo"
         />
       </div>
     </div>
@@ -64,11 +65,16 @@ export default {
     ]);
 
     const allPokemon = allResponses.map((response) => {
+      const rawResponse = response.data.species[0];
       const {
         name,
         id,
-        pokemon
-      } = response.data.species[0];
+        pokemon,
+        flavor_text,
+        genus,
+        habitat,
+        color,
+      } = rawResponse;
 
       console.log('pokemon response: ', pokemon);
 
@@ -81,7 +87,15 @@ export default {
           HP: pokemon.nodes[0].stats.find((stat) => stat.stat.name === 'hp').base_stat,
           attack: pokemon.nodes[0].stats.find((stat) => stat.stat.name === 'attack').base_stat,
           defense: pokemon.nodes[0].stats.find((stat) => stat.stat.name === 'defense').base_stat,
-        }
+        },
+        moreInfo: {
+          allStats: pokemon.nodes[0].stats.map((statObj) => ({[statObj.stat.name]: statObj.base_stat})),
+          'flavor text': flavor_text,
+          genus,
+          habitat,
+          color,
+        },
+        rawResponse,
       };
     });
 

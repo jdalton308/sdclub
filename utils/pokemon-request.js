@@ -14,6 +14,8 @@ export default function createPokemonRequest(name) {
         id
         pokemon: pokemon_v2_pokemons_aggregate {
           nodes {
+            height
+            order
             abilities: pokemon_v2_pokemonabilities {
               id
               ability: pokemon_v2_ability {
@@ -33,6 +35,28 @@ export default function createPokemonRequest(name) {
               }
             }
           }
+        }
+        flavor_text: pokemon_v2_pokemonspeciesflavortexts(limit: 1, where: {language_id: {_eq: 9}}) {
+          flavor_text
+          language_id
+        }
+        genus: pokemon_v2_pokemonspeciesnames(where: {language_id: {_eq: 9}}) {
+          genus
+          name
+          language_id
+        }
+        generation: pokemon_v2_generation {
+          name
+        }
+        growthrate: pokemon_v2_growthrate {
+          name
+          id
+        }
+        color: pokemon_v2_pokemoncolor {
+          name
+        }
+        habitat: pokemon_v2_pokemonhabitat {
+          name
         }
       }
     }

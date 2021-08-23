@@ -44,11 +44,27 @@
       <div class="pokemon-stat-list">
         <div
           class="pokemon-stat"
-          v-for="(statValue, statTitle) in stats"
-          :key="statTitle"
+          v-for="(infoValue, infoTitle) in moreInfo"
+          :key="infoTitle"
         >
-          <div class="stat-title">{{ statTitle }}:</div>
-          <div class="stat-value">{{ statValue }}</div>
+          <div
+            v-if="Array.isArray(infoValue)"
+            class="all-stat-list"
+          >
+            <div class="all-stats-title">{{ infoTitle }}</div>
+            <div class="pokemon-stat-list">
+              <div
+                class="pokemon-stat"
+                v-for="(statValue, statTitle) in infoValue"
+                :key="statTitle"
+              >
+                <div class="stat-title">{{ statTitle }}:</div>
+                <div class="stat-value">{{ statValue }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-title">{{ infoTitle }}:</div>
+          <div class="stat-value">{{ infoValue }}</div>
         </div>
       </div>
 
@@ -92,6 +108,9 @@ export default {
     stats: {
       type: Object,
     },
+    moreInfo: {
+      type: Object,
+    }
   },
 
 //----
