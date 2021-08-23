@@ -13,14 +13,15 @@
 
   <div class="cards-container container">
     <div class="columns">
-      <div class="column">
-        <PokemonCard />
-      </div>
-      <div class="column">
-        <PokemonCard />
-      </div>
-      <div class="column">
-        <PokemonCard />
+      <div
+        v-for="pokemon in allPokemon"
+        :key="pokemon.name"
+        class="column"
+      >
+        <PokemonCard
+          :name="pokemon.name"
+          :stats="pokemon.stats"
+        />
       </div>
     </div>
   </div>
@@ -46,16 +47,40 @@ export default {
 //----
 
   async asyncData({ $axios }) {
-    const request = createPokemonRequest('charmander');
-    console.log('charmander request: ', request);
+    const allResponses = await Promise.all([
+      $axios.$post(
+        "https://beta.pokeapi.co/graphql/v1beta",
+        createPokemonRequest('charmander'),
+      ),
+      $axios.$post(
+        "https://beta.pokeapi.co/graphql/v1beta",
+        createPokemonRequest('bulbasaur'),
+      ),
+      $axios.$post(
+        "https://beta.pokeapi.co/graphql/v1beta",
+        createPokemonRequest('squirtle'),
+      ),
+    ]);
 
-    const response = await $axios.$post(
-      "https://beta.pokeapi.co/graphql/v1beta",
-      createPokemonRequest('charmander'),
-    );
+    const allPokemon = allResponses.map((response) => {
+      const wrapper = response.data.species[0];
+      const { pokemon } = wrapper;
 
-    console.log('pokemon response: ', response);
-    return { pokemon: response.data };
+      console.log('pokemon response: ', pokemon);
+
+      return {
+        name: wrapper.name,
+        stats: {
+          abilities: pokemon.nodes[0].abilities.map((abilityObj) => abilityObj.ability.name).join(', '),
+          types: pokemon.nodes[0].types.map((typeObj) => typeObj.type.name).join(', '),
+          HP: pokemon.nodes[0].stats.find((stat) => stat.stat.name === 'hp').base_stat,
+          attack: pokemon.nodes[0].stats.find((stat) => stat.stat.name === 'attack').base_stat,
+          defense: pokemon.nodes[0].stats.find((stat) => stat.stat.name === 'defense').base_stat,
+        }
+      };
+    });
+
+    return { allPokemon };
   },
 }
 </script>

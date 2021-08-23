@@ -10,16 +10,16 @@
   </div>
 
   <div class="card-content">
-    <h3>Charmander</h3>
+    <h3 class="pokemon-name">{{ name }}</h3>
 
     <div class="pokemon-stat-list">
-      <div class="pokemon-stat">
-        <div class="stat-title">Abilities:</div>
-        <div class="stat-value">Blaze, Solar</div>
-      </div>
-      <div class="pokemon-stat">
-        <div class="stat-title">Abilities:</div>
-        <div class="stat-value">Blaze, Solar</div>
+      <div
+        class="pokemon-stat"
+        v-for="(statValue, statTitle) in stats"
+        :key="statTitle"
+      >
+        <div class="stat-title">{{ statTitle }}:</div>
+        <div class="stat-value">{{ statValue }}</div>
       </div>
     </div>
 
@@ -46,6 +46,20 @@ export default {
   components: {
     SmileButton,
   },
+
+//----
+
+  props: {
+    name: {
+      type: String,
+    },
+    image: {
+      type: String,
+    },
+    stats: {
+      type: Object,
+    },
+  }
 }
 
 </script>
@@ -55,6 +69,9 @@ export default {
 <style lang="scss">
 
 .pokemon-card.card {
+  .pokemon-name {
+    text-transform: capitalize;
+  }
   .pokemon-stat-list {
     margin-bottom: 20px;
 
@@ -65,9 +82,11 @@ export default {
       .stat-title {
         display: inline-block;
         font-weight: 600;
+        text-transform: capitalize;
       }
       .stat-value {
         display: inline-block;
+        text-transform: capitalize;
       }
     }
   }
