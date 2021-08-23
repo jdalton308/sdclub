@@ -5,7 +5,7 @@
   
   <div class="card-image">
     <div class="image is-4by3">
-      <img src="https://via.placeholder.com/150" alt="">
+      <img :src="`https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/official-artwork/${ id }.png?raw=true`" alt="">
     </div>
   </div>
 
@@ -53,8 +53,8 @@ export default {
     name: {
       type: String,
     },
-    image: {
-      type: String,
+    id: {
+      type: Number,
     },
     stats: {
       type: Object,
@@ -69,6 +69,9 @@ export default {
 <style lang="scss">
 
 .pokemon-card.card {
+  .card-image {
+    background-color: #E0E0E0;
+  }
   .pokemon-name {
     text-transform: capitalize;
   }

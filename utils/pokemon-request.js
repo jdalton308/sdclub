@@ -11,6 +11,7 @@ export default function createPokemonRequest(name) {
     query pokemon_details($name: String) {
       species: pokemon_v2_pokemonspecies(where: {name: {_eq: $name}}) {
         name
+        id
         pokemon: pokemon_v2_pokemons_aggregate {
           nodes {
             abilities: pokemon_v2_pokemonabilities {

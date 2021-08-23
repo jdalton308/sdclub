@@ -1,6 +1,6 @@
 <template>
 
-<div class="page page-pokemon">
+<div class="page page-pokemon px-5">
 
   <div class="page-title-container container">
     <h1 class="title-eyebrow">
@@ -15,11 +15,12 @@
     <div class="columns">
       <div
         v-for="pokemon in allPokemon"
-        :key="pokemon.name"
+        :key="pokemon.id"
         class="column"
       >
         <PokemonCard
           :name="pokemon.name"
+          :id="pokemon.id"
           :stats="pokemon.stats"
         />
       </div>
@@ -63,13 +64,17 @@ export default {
     ]);
 
     const allPokemon = allResponses.map((response) => {
-      const wrapper = response.data.species[0];
-      const { pokemon } = wrapper;
+      const {
+        name,
+        id,
+        pokemon
+      } = response.data.species[0];
 
       console.log('pokemon response: ', pokemon);
 
       return {
-        name: wrapper.name,
+        name,
+        id,
         stats: {
           abilities: pokemon.nodes[0].abilities.map((abilityObj) => abilityObj.ability.name).join(', '),
           types: pokemon.nodes[0].types.map((typeObj) => typeObj.type.name).join(', '),
