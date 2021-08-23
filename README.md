@@ -5,21 +5,23 @@ Thanks for taking the time to review my code. Immediately below you'll find a qu
 
 ## General Approach
 First I created the layout and card template. This was obviously an easier part of the challenge, but because Beufy and Bulma are already included I tried to incorporate those libraries where possible, adding a little bit of time as I am unfamiliar with those libraries. I ended up using the flexbox-based columns, the card component, and the button component styles. 
+
 After creating the initial styles, I fetched the Pokemon data from their GraphQL API, which is where most of my time was spent, as it took some time to sift through the available fields to find what query was needed. I have only used GraphQL a few times (when interacting with Shopify's API), but choosing it here allowed a single call to be made to retrieve all the data required, per Pokemon, which didn't appear to be possible using the RESTful API. After getting the data, there is some logic to manipulate its structure into a format more easily consumed by a template.
+
 Finally I added the interaction for the "Learn More" button. I chose the spinning card out of simplicity, and then added a few more data fields to fetch and displaly from the API.
 
 
 ## Files Added or Edited
-- /components/
-  - pokemon-card.vue: Card component; primarily just a template
-  - smile-button.vue: Button component
-- /pages/
-  - index.vue: Handles request for pokemon data and page layout
-- /utils/
-  - pokemon-request.js: Utility function for creating GraphQL query 
-- /assets/scss/
-  - _typography.scss: Simply heading styles
-  - custom-buefy.scss: Added more scss variable overrides
+- `/components/`
+  - `pokemon-card.vue`: Card component; primarily just a template
+  - `smile-button.vue`: Button component
+- `/pages/`
+  - `index.vue`: Handles request for pokemon data and page layout
+- `/utils/`
+  - `pokemon-request.js`: Utility function for creating GraphQL query 
+- `/assets/scss/`
+  - `_typography.scss`: Simply heading styles
+  - `custom-buefy.scss`: Added more scss variable overrides
 
 <hr>
 
